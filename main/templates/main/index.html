@@ -13,10 +13,15 @@
             <div class="body">
                 {% for el in doctors %}
                     <div class="content">
-                        <p>{{el.surname}} {{el.name}} {{el.patronymic}}</p>
-                        <p>{{el.specialization}}</p>
-                        <p>{{el.dob}}</p>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <p id="name{{el.id}}">{{el.surname}} {{el.name}} {{el.patronymic}}</p>
+                        <p id="specialization{{el.id}}">{{el.specialization}}</p>
+                        <p id="dob{{el.id}}">{{el.dob}}</p>
+                        <p id="qualification{{el.id}}" hidden>{{el.qualification}}</p>
+                        <p id="aop{{el.id}}" hidden>{{el.aop}}</p>
+                        <p id="photo{{el.id}}" hidden>{{el.photo}}</p>
+                        <p id="bio{{el.id}}" hidden>{{el.bio}}</p>
+                        <p id="phone_number{{el.id}}" hidden>{{el.phone_number}}</p>
+                        <button id="{{el.id}}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                           Подробнее
                         </button>
                     </div><br>

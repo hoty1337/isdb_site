@@ -5,8 +5,7 @@
         <h5 class="modal-title" id="exampleModalLabel">Карточка врача</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       </div>
-      <div class="modal-body">
-        <h5>{{el.people.surname}} {{el.people.name}} {{el.people.patronymic}}</h5>
+      <div class="modal-body" id="main">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
@@ -14,3 +13,18 @@
     </div>
   </div>
 </div>
+<script>
+  $('.content button').click(function (){
+    // $('#main').empty()
+    let id = this.id
+    let name = $('#name' + id).text()
+    let spec = $('#specialization' + id).text()
+    let dob = $('#dob' + id).text()
+    let qual = $('#qualification' + id).text()
+    let aop = $('#aop' + id).text()
+    let photo = $('#photo' + id).text()
+    let bio = $('#bio' + id).text()
+    let phone_number = $('#phone_number' + id).text()
+    $('#main').html('<h5>' + name + '</h5>' + '<br>' + '<img src="' + photo + '" alt="' + name + '">' + '<br>' + spec + '<br>' + dob + '<br>' + qual + '<br>' + aop + '<br>' + bio + '<br>' + phone_number + '<br>')
+  });
+</script>
