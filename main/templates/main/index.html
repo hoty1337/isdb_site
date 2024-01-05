@@ -1,0 +1,45 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block header %}Главная{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="block col-md-4">
+            <div class="title">
+                <h3>Наши врачи</h3>
+            </div>
+            <div class="body">
+                {% for el in doctors %}
+                    <div class="content">
+                        <p>{{el.people.surname}} {{el.people.name}} {{el.people.patronymic}}</p>
+                        <p>{{el.specialization}}</p>
+                        <p>{{el.people.dob}}</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                          Подробнее
+                        </button>
+                    </div><br>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="block col-md-7">
+            <div class="title">
+                <h3>Новости</h3>
+            </div>
+            <div class="body">
+                {% for el in news %}
+                    <div class="content">
+                        <h4>{{el.title}}</h4>
+                        <p>{{el.short_description}}</p>
+                        <p class="date">{{el.date}}</p>
+                        <p class="author">Автор: {{el.people.surname}} {{el.people.name}}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% include 'main/modal_doctor.html' %}
+
+{% endblock %}

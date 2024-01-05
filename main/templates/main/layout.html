@@ -1,0 +1,35 @@
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    <link rel="icon" href="{% static 'main/img/favicon.ico' %}">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-9 main">
+                <div class="sticky-top header">
+                    <h1>{% block header %}{% endblock %}</h1>
+                </div>
+                {% block content %}
+                {% endblock %}
+            </div>
+            <div class="sticky-top col-md-3 navigation">
+                <ul class="sticky-top">
+                    <li><h1>OURSITE</h1></li>
+                    <li><a href="{% url 'home' %}"><i class="fas fa-home"></i> Главная</a></li>
+                    <li><a href="{% url 'about' %}"><i class="fas fa-question"></i> Информация</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
