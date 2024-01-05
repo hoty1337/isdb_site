@@ -13,7 +13,7 @@
             <div class="body">
                 {% for el in doctors %}
                     <div class="content">
-                        <p>{{el.surename}} {{el.name}} {{el.patrynomic}}</p>
+                        <p>{{el.surname}} {{el.name}} {{el.patronymic}}</p>
                         <p>{{el.specialization}}</p>
                         <p>{{el.dob}}</p>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -31,7 +31,7 @@
                 {% for el in news %}
                     <div class="content">
                         <h4>{{el.title}}</h4>
-                        <p>{{el.short_description}}</p>
+                        <p>{{el.text}}</p>
                         <p class="date">{{el.date}}</p>
                         <p class="author">Автор: {{el.patronymic}} {{el.name}}</p>
                     </div>
