@@ -13,9 +13,9 @@
             <div class="body">
                 {% for el in doctors %}
                     <div class="content">
-                        <p>{{el.people.surname}} {{el.people.name}} {{el.people.patronymic}}</p>
+                        <p>{{el.surename}} {{el.name}} {{el.patrynomic}}</p>
                         <p>{{el.specialization}}</p>
-                        <p>{{el.people.dob}}</p>
+                        <p>{{el.dob}}</p>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                           Подробнее
                         </button>
