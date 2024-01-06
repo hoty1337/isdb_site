@@ -1,17 +1,90 @@
+*{
+    margin: 0;
+    padding: 0px;
+    font-family: 'Lato', sans-serif;
+}
+.name h1,
+.contacts h1,
+.Request h1 {
+    margin: 0; /* Убираем внутренние отступы у заголовков */
+}
 body {
-    background: #000000;
-    color: #FFFFFF;
+    background: #FFFFFF;
+    color: black;
 }
 
+.header {
+    width: 100vw;
+    background: white;
+    display: flex;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+
+}
+.contact-org, .appointments{
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+}
+.contacts{
+    margin-right: 50px;
+}
+.buffer{
+    width: 50%;
+}
+.video{
+    position: relative;
+    width: 100vw;
+    height: 80vh;
+    overflow: hidden;
+}
+.video-media{
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    z-index: 1;
+
+}
+.video-text{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    bottom: 100px;
+    left: 10px;
+    color: white;
+    font-size: 100px;
+
+
+
+}
+.appointment-button{
+    position: absolute;
+    left: 10px;
+    bottom: 60px;
+    padding: 10px 20px;
+    background-color: transparent; /* Убираем фон */
+    color: #00ABE7; /* Цвет текста */
+    border: 2px solid #00ABE7; /* Добавляем границу */
+    border-radius: 20px; /* Делаем круглые границы */
+    cursor: pointer;
+    font-size: 18px;
+    transition: background
+}
 .navigation {
     text-align: right;
     padding: 2%;
     background: #FFCC00;
 }
+.container {
+    position: relative; /* Добавляем позиционирование для .container */
+    z-index: 2; /* Поднимаем .container над видео с помощью z-index */
+}
 
 .btn {
-    background: #ff3d00;
-    border-color: #ff3d00;
+    background: white;
+    border-color: white;
 }
 
 .modal {
@@ -72,10 +145,7 @@ p.author {
     height: 100vh;
 }
 
-.header {
-    background: #CC6600;
-    padding: 10px 10px;
-}
+
 
 .navigation ul {
     list-style: none;

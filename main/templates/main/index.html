@@ -1,8 +1,36 @@
 {% extends 'main/layout.html' %}
 
-{% block title %}Главная страница{% endblock %}
+{% block title %}K&R{% endblock %}
 
-{% block header %}Главная{% endblock %}
+{% block header %}K&R CLINIC {% endblock %}
+
+{% block contacts %}
+    <div class="contact-org">
+        <img class="contact" src="../../static/main/img/phone.svg" width="32" height="32">
+        555-2368
+    </div>
+{% endblock %}
+
+{% block appointment %}
+    <div class="appointments">
+        <img class="appointment-icon" src="../../static/main/img/appointment.svg" width="32" height="32">
+        Request appointments
+    </div>
+{% endblock %}
+
+{% block video %}
+    <div class="media-block">
+        <div class="video">
+            <video class="video-media" src="../../static/main/video/mask-wearing.mp4" autoplay muted loop></video>
+        </div>
+        <div class="container">
+            <div class="video-text">Invest in your health</div>
+            <button class="appointment-button">Request appointments</button>
+        </div>
+    </div>
+
+{% endblock %}
+
 
 {% block content %}
     <div class="row">
