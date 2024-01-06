@@ -60,9 +60,9 @@ def register(request):
 				dob = str(request.POST['dob'])
 				password = hashlib.md5(str(request.POST['password']).encode('utf-8')).hexdigest()
 				cursor.execute(
-					'INSERT INTO people(name, surename, patrynomic, sex, dob, email, password) VALUES (%s, %s, %s, %s, %s, %s, %s)',
-					[name, surname, patronymic, sex, dob, email, password])
-				request.session['id_user'] = cursor.lastrowid
+					'INSERT INTO people(name, surename, patrynomic, sex, dob, email, password) VALUES (%s, %s, %s, %s, %s, %s, %s)\
+					 RETURNING id', [name, surname, patronymic, sex, dob, email, password])
+				request.session['id_user'] = cursor.fetchone()[0]
 				return redirect('/')
 	return render(request, 'main/register.html', {'email': email, 'password': password, 'session': request.session})
 
