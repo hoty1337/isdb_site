@@ -1,0 +1,24 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Авторизация{% endblock %}
+
+{% block header %}Авторизация{% endblock %}
+
+{% block content %}
+
+    <div class="block auth">
+        <h2>Войти</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label>
+                EMail: <input type="text" name="email">
+            </label><br>
+            <label>
+                Пароль: <input type="password" name="password">
+            </label>
+            <button type="submit">Войти</button>
+            <p style="color: red">{{error}}</p>
+        </form>
+    </div>
+
+{% endblock %}
