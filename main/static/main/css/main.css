@@ -55,9 +55,6 @@ body {
     left: 10px;
     color: white;
     font-size: 100px;
-
-
-
 }
 .appointment-button{
     position: absolute;
@@ -72,16 +69,55 @@ body {
     font-size: 18px;
     transition: background
 }
+.container {
+    position: relative; /* Добавляем позиционирование для .container */
+    z-index: 2; /* Поднимаем .container над видео с помощью z-index */
+}
+.news-block{
+}
+.general-title{
+    margin-left: 10px;
+    color: black;
+    font-size: 60px;
+    width: 30%;
+}
+.list-of-news{
+    width: 100%;
+}
+.news-grid {
+    margin-right: 10px;
+    margin-left: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px; /* Промежуток между прямоугольниками */
+}
+
+.content {
+    border: 1px solid #ddd;
+    padding: 15px;
+    height: min-content;
+}
+/*.content {*/
+/*    margin-left: 10px;*/
+/*    margin-bottom: 10px;*/
+/*    padding: 10px 10px 10px 10px;*/
+/*    background: white;*/
+/*    width: 100%;*/
+/*}*/
+.line-container{
+    display: flex;
+    justify-content: center;
+}
+.create-line{
+    display: flex;
+    width: 600px;
+    border-top: 3px solid #00ABE7;
+}
 .navigation {
     text-align: right;
     padding: 2%;
     background: #FFCC00;
 }
-.container {
-    position: relative; /* Добавляем позиционирование для .container */
-    z-index: 2; /* Поднимаем .container над видео с помощью z-index */
-}
-
 .btn {
     background: white;
     border-color: white;
@@ -121,10 +157,7 @@ body {
     margin-bottom: 5px;
 }
 
-.content {
-    background: #CC6600;
-    border-radius: 10px;
-}
+
 
 p.date {
     font-size: 10pt;

@@ -30,7 +30,35 @@
     </div>
 
 {% endblock %}
-
+{% block news %}
+    <div class="news-block">
+        <div class="general-title">Our news</div>
+        <div class="news-grid">
+            {% for el in news %}
+                <div class="content">
+                    <h4>{{ el.title }}</h4>
+                    <p>{{ el.text }}</p>
+                    <p class="date">{{ el.date }}</p>
+                    <p class="author">Автор: {{ el.patronymic }} {{ el.name }}</p>
+                </div>
+            {% endfor %}
+        </div>
+{#        <div class="list-of-news">#}
+{#             {% for el in news %}#}
+{#                    <div class="content">#}
+{#                        <h4>{{el.title}}</h4>#}
+{#                        <p>{{el.text}}</p>#}
+{#                        <p class="date">{{el.date}}</p>#}
+{#                        <p class="author">Автор: {{el.patronymic}} {{el.name}}</p>#}
+{#                        <div class="line-container">#}
+{#                            <div class="create-line"></div>#}
+{#                        </div>#}
+{##}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#        </div>#}
+    </div>
+{% endblock %}
 
 {% block content %}
     <div class="row">
