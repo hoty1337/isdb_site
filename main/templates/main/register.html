@@ -1,39 +1,45 @@
 {% extends 'main/layout.html' %}
 
-{% block title %}Регистрация{% endblock %}
 
-{% block header %}Регистрация{% endblock %}
 
 {% block content %}
-
-    <div class="block auth">
-        <h2>Зарегистрироваться</h2>
-        <form method="post">
-            {% csrf_token %}
-            <label>
-                Имя: <input type="text" name="name">
-            </label><br>
-            <label>
-                Фамилия: <input type="text" name="surname">
-            </label><br>
-            <label>
-                Отчество: <input type="text" name="patronymic">
-            </label><br>
-            <label>
-                Пол: <input type="text" name="sex">
-            </label><br>
-            <label>
-                Дата рождения: <input type="date" name="dob">
-            </label><br>
-            <label>
-                EMail: <input type="text" name="email">
-            </label><br>
-            <label>
-                Пароль: <input type="password" name="password">
-            </label>
-            <button type="submit">Зарегистрироваться</button>
-            <p style="color: red">{{error}}</p>
-        </form>
+    <div class="media-block2">
+        <div class="video2">
+            <video class="video-media2" src="../../static/main/video/login-video.mp4" autoplay muted loop></video>
+        </div>
+        <div class="container2">
+            <div class="map-container2">
+                <div class="block-auth">
+                    <h2>Зарегистрироваться</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        <label>
+                            Name: <input type="text" name="name">
+                        </label><br>
+                        <label>
+                            Surname: <input type="text" name="surname">
+                        </label><br>
+                        <label>
+                            Patronymic: <input type="text" name="patronymic">
+                        </label><br>
+                        <label>
+                            Sex: <input type="text" name="sex">
+                        </label><br>
+                        <label>
+                            DOB: <input type="date" name="dob">
+                        </label><br>
+                        <label>
+                            EMail: <input type="text" name="email">
+                        </label><br>
+                        <label>
+                            Password: <input type="password" name="password">
+                        </label>
+                        <button type="submit">Зарегистрироваться</button>
+                        <p style="color: red">{{ error }}</p>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
 {% endblock %}

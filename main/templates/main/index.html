@@ -2,21 +2,7 @@
 
 {% block title %}K&R{% endblock %}
 
-{% block header %}K&R CLINIC {% endblock %}
 
-{% block contacts %}
-    <div class="contact-org">
-        <img class="contact" src="../../static/main/img/phone.svg" width="32" height="32">
-        555-2368
-    </div>
-{% endblock %}
-
-{% block appointment %}
-    <div class="appointments">
-        <img class="appointment-icon" src="../../static/main/img/appointment.svg" width="32" height="32">
-        Request appointments
-    </div>
-{% endblock %}
 
 {% block video %}
     <div class="media-block">
@@ -43,20 +29,6 @@
                 </div>
             {% endfor %}
         </div>
-{#        <div class="list-of-news">#}
-{#             {% for el in news %}#}
-{#                    <div class="content">#}
-{#                        <h4>{{el.title}}</h4>#}
-{#                        <p>{{el.text}}</p>#}
-{#                        <p class="date">{{el.date}}</p>#}
-{#                        <p class="author">Автор: {{el.patronymic}} {{el.name}}</p>#}
-{#                        <div class="line-container">#}
-{#                            <div class="create-line"></div>#}
-{#                        </div>#}
-{##}
-{#                    </div>#}
-{#                {% endfor %}#}
-{#        </div>#}
     </div>
 {% endblock %}
 

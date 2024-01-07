@@ -1,24 +1,29 @@
 {% extends 'main/layout.html' %}
 
-{% block title %}Авторизация{% endblock %}
-
-{% block header %}Авторизация{% endblock %}
 
 {% block content %}
-
-    <div class="block auth">
-        <h2>Войти</h2>
-        <form method="post">
-            {% csrf_token %}
-            <label>
-                EMail: <input type="text" name="email">
-            </label><br>
-            <label>
-                Пароль: <input type="password" name="password">
-            </label>
-            <button type="submit">Войти</button>
-            <p style="color: red">{{error}}</p>
-        </form>
+    <div class="media-block2">
+        <div class="video2">
+            <video class="video-media2" src="../../static/main/video/login-video.mp4" autoplay muted loop></video>
+        </div>
+        <div class="container2">
+            <div class="map-container2">
+                <div class="block-auth">
+                    <h2>Login</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        <label>
+                            Email <input type="text" name="email">
+                        </label>
+                        <label>
+                            Password <input type="password" name="password">
+                        </label>
+                        <button type="submit">Войти</button>
+                        <p style="color: red">{{ error }}</p>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
 {% endblock %}
