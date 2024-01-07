@@ -1,0 +1,39 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block header %}Регистрация{% endblock %}
+
+{% block content %}
+
+    <div class="block auth">
+        <h2>Зарегистрироваться</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label>
+                Имя: <input type="text" name="name">
+            </label><br>
+            <label>
+                Фамилия: <input type="text" name="surname">
+            </label><br>
+            <label>
+                Отчество: <input type="text" name="patronymic">
+            </label><br>
+            <label>
+                Пол: <input type="text" name="sex">
+            </label><br>
+            <label>
+                Дата рождения: <input type="date" name="dob">
+            </label><br>
+            <label>
+                EMail: <input type="text" name="email">
+            </label><br>
+            <label>
+                Пароль: <input type="password" name="password">
+            </label>
+            <button type="submit">Зарегистрироваться</button>
+            <p style="color: red">{{error}}</p>
+        </form>
+    </div>
+
+{% endblock %}

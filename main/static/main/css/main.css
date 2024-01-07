@@ -182,3 +182,11 @@ ul.sticky-top {
     margin: 20px 15%;
     max-width: 800px;
 }
+
+.block.auth form {
+    display: inline-grid;
+    align-content: stretch;
+    align-items: center;
+    justify-content: center;
+    justify-items: end;
+}
