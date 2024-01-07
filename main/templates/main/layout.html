@@ -14,32 +14,35 @@
     <link rel="icon" href="{% static 'main/img/favicon.ico' %}">
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-9 main">
-                <div class="sticky-top header">
-                    <h1>{% block header %}{% endblock %}</h1>
-                </div>
-                {% block content %}
-                {% endblock %}
+    <div class="page">
+        <div class="header">
+            <div class="name">
+                <h1>{% block header %}{% endblock %}</h1>
             </div>
-            <div class="sticky-top col-md-3 navigation">
-                <ul class="sticky-top">
-                    {% if 'id_user' in session %}
-                    <li><h1>Привет, {{session.id_user}}</h1></li>
-                    {% else %}
-                    <li><h1>OURSITE</h1></li>
-                    {% endif %}
-                    <li><a href="{% url 'home' %}"><i class="fas fa-home"></i> Главная</a></li>
-                    <li><a href="{% url 'about' %}"><i class="fas fa-question"></i> Информация</a></li>
-                    {% if 'id_user' not in session %}
-                    <li><a href="{% url 'login' %}"><i class="fas fa-user"></i> Войти</a></li>
-                    {% else %}
-                    <li><a href="{% url 'logout' %}"><i class="fas fa-bell"></i> Выход</a></li>
-                    {% endif %}
-                </ul>
+
+            <div class="buffer"> </div>
+            <div class="contacts">
+                <h1>{%  block contacts%}{% endblock %}</h1>
+
+            </div>
+            <div class="request-appointment">
+                {% block appointment %}{% endblock %}
             </div>
         </div>
+        <div class="video-content">
+            {% block video %}{% endblock %}
+        </div>
+{#                {% block content %}#}
+{#                {% endblock %}#}
+{#        </div>#}
+{#            <div class="sticky-top col-md-3 navigation">#}
+{#                <ul class="sticky-top">#}
+{#                    <li><h1>OURSITE</h1></li>#}
+{#                    <li><a href="{% url 'home' %}"><i class="fas fa-home"></i> Главная</a></li>#}
+{#                    <li><a href="{% url 'about' %}"><i class="fas fa-question"></i> Информация</a></li>#}
+{#                </ul>#}
+{#            </div>#}
+{#        </div>#}
     </div>
 </body>
 </html>
