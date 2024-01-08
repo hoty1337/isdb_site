@@ -17,7 +17,7 @@ def index(request):
 
 
 def about(request):
-	return render(request, 'main/about.html')
+	return render(request, 'main/about.html', {'session': request.session})
 
 
 def namedTupleFetchAll(cursor):
@@ -37,7 +37,7 @@ def login(request):
 			cursor.execute('SELECT id FROM people WHERE email = %s AND password = %s', (email, password))
 			res = cursor.fetchone()
 			if res is None:
-				return render(request, 'main/login.html', {'error': 'Неверная почта или пароль.'})
+				return render(request, 'main/login.html', {'error': 'Неверная почта или пароль.', 'session': request.session})
 			request.session['id_user'] = res[0]
 			return redirect('/')
 
