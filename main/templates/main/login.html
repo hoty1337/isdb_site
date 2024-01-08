@@ -1,10 +1,10 @@
 {% extends 'main/layout.html' %}
-
+{% load static %}
 
 {% block content %}
     <div class="media-block2">
         <div class="video2">
-            <video class="video-media2" src="../../static/main/video/login-video.mp4" autoplay muted loop></video>
+            <video class="video-media2" src="{% static 'main/video/login-video.mp4' %}" autoplay muted loop></video>
         </div>
         <div class="container2">
             <div class="map-container2">
@@ -21,6 +21,7 @@
                         <button type="submit">Войти</button>
                         <p style="color: red">{{ error }}</p>
                     </form>
+                    <a href="{% url 'register' %}">Регистрация</a>
                 </div>
             </div>
         </div>

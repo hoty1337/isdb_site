@@ -1,5 +1,5 @@
 {% extends 'main/layout.html' %}
-
+{% load static %}
 {% block title %}K&R{% endblock %}
 
 
@@ -7,7 +7,7 @@
 {% block video %}
     <div class="media-block">
         <div class="video">
-            <video class="video-media" src="../../static/main/video/mask-wearing.mp4" autoplay muted loop></video>
+            <video class="video-media" src="{% static 'main/video/mask-wearing.mp4' %}" autoplay muted loop></video>
         </div>
         <div class="container">
             <div class="video-text">Invest in your health</div>

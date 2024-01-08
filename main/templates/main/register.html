@@ -1,11 +1,11 @@
 {% extends 'main/layout.html' %}
-
+{% load static %}
 
 
 {% block content %}
     <div class="media-block2">
         <div class="video2">
-            <video class="video-media2" src="../../static/main/video/login-video.mp4" autoplay muted loop></video>
+            <video class="video-media2" src="{% static 'main/video/login-video.mp4' %}" autoplay muted loop></video>
         </div>
         <div class="container2">
             <div class="map-container2">
@@ -15,27 +15,28 @@
                         {% csrf_token %}
                         <label>
                             Name: <input type="text" name="name">
-                        </label><br>
+                        </label>
                         <label>
                             Surname: <input type="text" name="surname">
-                        </label><br>
+                        </label>
                         <label>
                             Patronymic: <input type="text" name="patronymic">
-                        </label><br>
+                        </label>
                         <label>
                             Sex: <input type="text" name="sex">
-                        </label><br>
+                        </label>
                         <label>
                             DOB: <input type="date" name="dob">
-                        </label><br>
+                        </label>
                         <label>
                             EMail: <input type="text" name="email">
-                        </label><br>
+                        </label>
                         <label>
                             Password: <input type="password" name="password">
                         </label>
                         <button type="submit">Зарегистрироваться</button>
                         <p style="color: red">{{ error }}</p>
+                        <a href="{% url 'login' %}">Войти</a>
                     </form>
                 </div>
             </div>
