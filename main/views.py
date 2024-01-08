@@ -21,7 +21,12 @@ def about(request):
 
 
 def doctors(request):
-    return render(request, 'main/doctors.html', {'session': request.session})
+    with connection.cursor() as cursor:
+        cursor.callproc('get_doctors_list')
+        doctors = namedTupleFetchAll(cursor)
+        cursor.callproc('get_news')
+        news = namedTupleFetchAll(cursor)
+    return render(request, 'main/doctors.html', {'doctors':doctors,'news':news,'session': request.session})
 
 
 def namedTupleFetchAll(cursor):

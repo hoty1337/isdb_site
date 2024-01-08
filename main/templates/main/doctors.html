@@ -1,17 +1,31 @@
 {% extends 'main/layout.html' %}
-
+{% load static %}
 {% block content %}
-    <div class="news-block">
-        <div class="general-title">Our news</div>
-        <div class="news-grid">
-            {% for el in news %}
+    <div class="doctors-block">
+        <div class="full-width-image">
+            <img src="{% static 'main/img/doctors.jpeg' %}" alt="Full Width Image">
+            <div class="container">
+                <div class="image-text">They save your life</div>
+            </div>
+        </div>
+        <div class="doctors-grid">
+            {% for el in doctors %}
                 <div class="content">
-                    <h4>{{ el.title }}</h4>
-                    <p>{{ el.text }}</p>
-                    <p class="date">{{ el.date }}</p>
-                    <p class="author">Автор: {{ el.patronymic }} {{ el.name }}</p>
-                </div>
+                    <p id="name{{ el.id }}">{{ el.surname }} {{ el.name }} {{ el.patronymic }}</p>
+                    <p id="specialization{{ el.id }}">{{ el.specialization }}</p>
+                    <p id="dob{{ el.id }}">{{ el.dob }}</p>
+                    <p id="qualification{{ el.id }}" hidden>{{ el.qualification }}</p>
+                    <p id="aop{{ el.id }}" hidden>{{ el.aop }}</p>
+                    <p id="photo{{ el.id }}" hidden>{{ el.photo }}</p>
+                    <p id="bio{{ el.id }}" hidden>{{ el.bio }}</p>
+                    <p id="phone_number{{ el.id }}" hidden>{{ el.phone_number }}</p>
+                    <button id="{{ el.id }}" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                        Подробнее
+                    </button>
+                </div><br>
             {% endfor %}
         </div>
     </div>
+    {% include 'main/modal_doctor.html' %}
 {% endblock %}
