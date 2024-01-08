@@ -9,23 +9,32 @@ from collections import namedtuple
 
 
 def index(request):
-	with connection.cursor() as cursor:
-		cursor.callproc('get_doctors_list')
-		doctors = namedTupleFetchAll(cursor)
-		cursor.callproc('get_news')
-		news = namedTupleFetchAll(cursor)
-	return render(request, 'main/index.html', {'doctors': doctors, 'news': news, 'session': request.session})
+    with connection.cursor() as cursor:
+        cursor.callproc('get_doctors_list')
+        doctors = namedTupleFetchAll(cursor)
+        cursor.callproc('get_news')
+        news = namedTupleFetchAll(cursor)
+    return render(request, 'main/index.html', {'doctors': doctors, 'news': news, 'session': request.session})
 
 
 def about(request):
-	return render(request, 'main/about.html', {'session': request.session})
+    return render(request, 'main/about.html', {'session': request.session})
+
+
+def doctors(request):
+    with connection.cursor() as cursor:
+        cursor.callproc('get_doctors_list')
+        doctors = namedTupleFetchAll(cursor)
+        cursor.callproc('get_news')
+        news = namedTupleFetchAll(cursor)
+    return render(request, 'main/doctors.html', {'doctors':doctors,'news':news,'session': request.session})
 
 
 def namedTupleFetchAll(cursor):
-	"""Return all rows from a cursor as a namedtuple"""
-	desc = cursor.description
-	nt_result = namedtuple('Result', [col[0] for col in desc])
-	return [nt_result(*row) for row in cursor.fetchall()]
+    """Return all rows from a cursor as a namedtuple"""
+    desc = cursor.description
+    nt_result = namedtuple('Result', [col[0] for col in desc])
+    return [nt_result(*row) for row in cursor.fetchall()]
 
 
 def login(request):

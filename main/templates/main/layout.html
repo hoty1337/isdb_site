@@ -31,11 +31,12 @@
                     Information
                 </div>
             </a>
-            {#TODO: add link for doctors profiles pages #}
-            <div class="doctors">
-                <img class="doctors-icon" src="{% static 'main/img/doctors.svg' %}" width="32" height="32">
-                Our doctors
-            </div>
+            <a href="{% url 'doctors' %}">
+                <div class="doctors">
+                    <img class="doctors-icon" src="{% static 'main/img/doctors.svg' %}" width="32" height="32">
+                    Our doctors
+                </div>
+            </a>
             {# TODO: add link for appoinments page  #}
             {% if 'id_user' in session %}
             <div class="appointments">
@@ -47,16 +48,23 @@
             {% endif %}
             {# TODO: unite icon and text for link #}
             <div class="log-stuff">
-                <img class="contact" src="{% static 'main/img/log.svg' %}" width="32" height="32">
+
                 {% if 'id_user' not in session %}
-                    <a href="{% url 'login' %}" class="login"> Login</a>
+                    <a href="{% url 'login' %}" class="login">
+                        <img class="contact" src="{% static 'main/img/log.svg' %}" width="32" height="32">
+                        Login
+                    </a>
                 {% else %}
-                    <a href="{% url 'logout' %}" class="logout"> Logout</a>
+                    <a href="{% url 'logout' %}" class="logout">
+                        <img class="contact" src="{% static 'main/img/log.svg' %}" width="32" height="32">
+                        Logout
+                    </a>
                     {# если нажать не залогиненным на "информация, то при переходе отображается logout, как будто мы были залогинены #}
                 {% endif %}
             </div>
         </div>
     </div>
+    <div class="create-line"></div>
     <div class="video-content">
         {% block video %}{% endblock %}
     </div>
@@ -65,22 +73,22 @@
     </div>
     {% block content %}{% endblock %}
 
-    <div class="sticky-top col-md-3 navigation">
-        <ul class="sticky-top">
-            {% if 'id_user' in session %}
-                <li><h1>Привет, {{ session.id_user }}</h1></li>
-            {% else %}
-                <li><h1>OURSITE</h1></li>
-            {% endif %}
-            <li><a href="{% url 'home' %}"><i class="fas fa-home"></i> Главная</a></li>
-            <li><a href="{% url 'about' %}"><i class="fas fa-question"></i> Информация</a></li>
-            {% if 'id_user' not in session %}
-                <li><a href="{% url 'login' %}"><i class="fas fa-user"></i> Войти</a></li>
-            {% else %}
-                <li><a href="{% url 'logout' %}"><i class="fas fa-bell"></i> Выход</a></li>
-            {% endif %}
-        </ul>
-    </div>
+{#    <div class="sticky-top col-md-3 navigation">#}
+{#        <ul class="sticky-top">#}
+{#            {% if 'id_user' in session %}#}
+{#                <li><h1>Привет, {{ session.id_user }}</h1></li>#}
+{#            {% else %}#}
+{#                <li><h1>OURSITE</h1></li>#}
+{#            {% endif %}#}
+{#            <li><a href="{% url 'home' %}"><i class="fas fa-home"></i> Главная</a></li>#}
+{#            <li><a href="{% url 'about' %}"><i class="fas fa-question"></i> Информация</a></li>#}
+{#            {% if 'id_user' not in session %}#}
+{#                <li><a href="{% url 'login' %}"><i class="fas fa-user"></i> Войти</a></li>#}
+{#            {% else %}#}
+{#                <li><a href="{% url 'logout' %}"><i class="fas fa-bell"></i> Выход</a></li>#}
+{#            {% endif %}#}
+{#        </ul>#}
+{#    </div>#}
 </div>
 </body>
 </html>
