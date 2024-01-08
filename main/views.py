@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 from django.shortcuts import render, redirect
 from django.db import connection
 import hashlib
@@ -28,6 +29,8 @@ def namedTupleFetchAll(cursor):
 
 
 def login(request):
+	if 'id_user' in request.session:
+		return redirect('/')
 	email = None
 	password = None
 	if request.method == 'POST':
@@ -45,6 +48,8 @@ def login(request):
 
 
 def register(request):
+	if 'id_user' in request.session:
+		return redirect('/')
 	email = None
 	password = None
 	if request.method == 'POST':
@@ -68,5 +73,16 @@ def register(request):
 
 
 def logout(request):
+	if 'id_user' not in request.session:
+		return redirect('/')
 	del request.session['id_user']
 	return redirect('/')
+
+
+def appointments(request):
+	if 'id_user' not in request.session:
+		return redirect('/')
+	with connection.cursor() as cursor:
+		cursor.callproc('get_doctors_list')
+		doctors = namedTupleFetchAll(cursor)
+	return render(request, 'main/appointments.html', {'session': request.session, 'doctors': doctors, 'curdate': date.today().strftime('%Y-%m-%d'), 'lastdate': (date.today() + timedelta(days=30)).strftime('%Y-%m-%d')})

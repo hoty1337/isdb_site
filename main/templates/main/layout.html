@@ -37,10 +37,14 @@
                 Our doctors
             </div>
             {# TODO: add link for appoinments page  #}
+            {% if 'id_user' in session %}
             <div class="appointments">
-                <img class="appointment-icon" src="{% static 'main/img/appointment.svg' %}" width="32" height="32">
-                Request appointments
+                <a href="{% url 'appointments' %}">
+                    <img class="appointment-icon" src="{% static 'main/img/appointment.svg' %}" width="32" height="32">
+                    Request appointments
+                </a>
             </div>
+            {% endif %}
             {# TODO: unite icon and text for link #}
             <div class="log-stuff">
                 <img class="contact" src="{% static 'main/img/log.svg' %}" width="32" height="32">
