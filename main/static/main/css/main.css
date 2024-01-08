@@ -164,8 +164,48 @@ body {
     margin-top: 10px;
 }
 
-.news-block{
+.about-section {
+    position: relative;
+    overflow: hidden;
+    background-image: url('../../main/img/about-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff; /* Изменено на белый цвет текста */
+    padding: 60px 0;
 }
+
+.container3 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start; /* Изменено на flex-start */
+    height: 100%;
+}
+
+.clinic-description {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 50%;
+    margin: 20px;
+}
+
+h1 {
+    color: #333; /* Изменено на цвет текста */
+}
+
+.clinic-description p {
+    color: #333;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+
+
+
+
+
 .general-title{
     margin-left: 10px;
     color: black;

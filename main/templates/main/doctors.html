@@ -1,0 +1,17 @@
+{% extends 'main/layout.html' %}
+
+{% block content %}
+    <div class="news-block">
+        <div class="general-title">Our news</div>
+        <div class="news-grid">
+            {% for el in news %}
+                <div class="content">
+                    <h4>{{ el.title }}</h4>
+                    <p>{{ el.text }}</p>
+                    <p class="date">{{ el.date }}</p>
+                    <p class="author">Автор: {{ el.patronymic }} {{ el.name }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'newsite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'newsite',
-        'USER': 's335154',
-        'PASSWORD': 'DPac(0511',
+        'NAME': 'hospital',
+        'USER': 'tix',
+        'PASSWORD': 'Ri652845',
         'HOST': 'localhost',
         'PORT': 5432,
     }
