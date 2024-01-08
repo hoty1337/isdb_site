@@ -1,0 +1,32 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="media-block2">
+        <div class="video2">
+            <video class="video-media2" src="{% static 'main/video/login-video.mp4' %}" autoplay muted loop></video>
+        </div>
+        <div class="container2">
+            <div class="map-container2">
+                <form>
+                    <label>
+                        Доктор:
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg">
+                            {% for doctor in doctors %}
+                                <option value="{{doctor.id}}">{{doctor.surname}} {{doctor.name}} {{doctor.patronymic}}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                    <label>
+                        <input type="date" name="calendar" min="{{curdate}}" max="{{lastdate}}">
+                    </label>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+    </script>
+
+{% endblock %}
