@@ -5,7 +5,25 @@
         <h5 class="modal-title" id="exampleModalLabel">Карточка врача</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       </div>
-      <div class="modal-body" id="main">
+      <div class="modal-body">
+        <div id="main"></div>
+        <hr>
+        <div id="send_review">
+          <form action="{% url 'send_review' %}" method="post">
+            <input id="doc_id" class="doc_id" name="doc_id" hidden value="0">
+            <label>
+              Оценка:
+              <input id="mark" name="mark" type="range" min="1" max="5" value="5">
+            </label><p id="text_mark">5</p>
+            <label>
+              Отзыв:
+              <input id="review_text" name="review_text" type="text" class="form-control"><br>
+            </label>
+            <input type="submit" class="form-control" value="Отправить">
+            <p class="error" style="color: red"></p>
+          </form>
+        </div>
+        <div id="reviews"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
@@ -25,6 +43,47 @@
     let photo = $('#photo' + id).text()
     let bio = $('#bio' + id).text()
     let phone_number = $('#phone_number' + id).text()
+    $('.error').empty();
+    $('#review_text').val("");
     $('#main').html('<h5>' + name + '</h5>' + '<br>' + '<img src="' + photo + '" alt="' + name + '">' + '<br>' + spec + '<br>' + dob + '<br>' + qual + '<br>' + aop + '<br>' + bio + '<br>' + phone_number + '<br>')
+    $('.doc_id').attr('value', id);
+    $.ajax({
+       url: "{% url 'get_reviews' %}",
+       method: 'post',
+       data: { csrfmiddlewaretoken: '{{ csrf_token }}',
+                doc_id: $('#doc_id').val()},
+       success: function(data){
+         $('#reviews').html(data);
+       }
+    });
+  });
+
+  $(function() {
+     $('#mark').on('change', function (e) {
+        $('#text_mark').text($('#mark').val());
+     });
+
+     $('#send_review form').on('submit', function (e){
+       e.preventDefault();
+       let text = $('#review_text').val();
+       if(text.length < 20) {
+         $('p.error').text('Отзыв слишком короткий! <20 символов.')
+       } else {
+         $.ajax({
+           url: $(this).attr('action'),
+           method: $(this).attr('method'),
+           data: {
+             csrfmiddlewaretoken: '{{ csrf_token }}',
+             doc_id: $('#doc_id').val(),
+             review_text: text,
+             mark: $('#mark').val()
+           },
+           success: function (data) {
+             $('#reviews').html(data);
+             $('.modal-footer form').remove();
+           }
+         });
+       }
+     });
   });
 </script>

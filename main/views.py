@@ -73,12 +73,18 @@ def register(request):
 				sex = str(request.POST['sex'])
 				dob = str(request.POST['dob'])
 				password = hashlib.md5(str(request.POST['password']).encode('utf-8')).hexdigest()
-				cursor.execute(
+				try:
+					cursor.execute(
 					'INSERT INTO people(name, surename, patrynomic, sex, dob, email, password) VALUES (%s, %s, %s, %s, %s, %s, %s)\
 					 RETURNING id', [name, surname, patronymic, sex, dob, email, password])
-				request.session['id_user'] = cursor.fetchone()[0]
-				return redirect('/')
-	return render(request, 'main/register.html', {'email': email, 'password': password, 'session': request.session})
+					request.session['id_user'] = cursor.fetchone()[0]
+					return redirect('/')
+				except Exception as err:
+					return render(request, 'main/register.html',
+												{'email': email, 'password': password, 'session': request.session,
+												 'error': 'Ваш возраст должен быть больше 18 лет!'})
+	return render(request, 'main/register.html',
+								{'email': email, 'password': password, 'session': request.session, 'error': 'Данная почта уже занята!'})
 
 
 def logout(request):
@@ -95,3 +101,24 @@ def appointments(request):
 		cursor.callproc('get_doctors_list')
 		doctors = namedTupleFetchAll(cursor)
 	return render(request, 'main/appointments.html', {'session': request.session, 'doctors': doctors, 'curdate': date.today().strftime('%Y-%m-%d'), 'lastdate': (date.today() + timedelta(days=30)).strftime('%Y-%m-%d')})
+
+
+def get_reviews(request):
+	if request.method == 'POST':
+		with connection.cursor() as cursor:
+			cursor.callproc('get_reviews', [request.POST.get('doc_id')])
+			reviews = namedTupleFetchAll(cursor)
+		return render(request, 'main/reviews.html', {'session': request.session, 'reviews': reviews})
+	return redirect('/')
+
+
+def send_review(request):
+	if request.method == 'POST':
+		with connection.cursor() as cursor:
+			cursor.execute('INSERT INTO reviews (review, mark, date, doctor_id, patient_id) VALUES (%s, %s, %s, %s, %s)',
+										 [request.POST.get('review_text'), request.POST.get('mark'), date.today().strftime('%Y-%m-%d'), request.POST.get('doc_id'),
+										 request.session['id_user']])
+			cursor.callproc('get_reviews', [request.POST.get('doc_id')])
+			reviews = namedTupleFetchAll(cursor)
+			return render(request, 'main/reviews.html', {'session': request.session, 'reviews': reviews})
+	return redirect('/')

@@ -1,0 +1,9 @@
+{% csrf_token %}
+{% for el in reviews %}
+<hr>
+<div id="review">
+    <h4>{{el.name}} {{el.surname}} {{el.patronymic}} <i class="fas fa-star"></i> {{el.mark}}</h4>
+    <p>{{el.review}}</p>
+    <small>{{el.date}}</small>
+</div>
+{% endfor %}
