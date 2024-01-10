@@ -10,7 +10,7 @@
         <div class="container2">
             <div class="map-container2">
                 <div class="block-auth">
-                    <h2>Зарегистрироваться</h2>
+                    <h2>Register</h2>
                     <form method="post">
                         {% csrf_token %}
                         <label>
@@ -34,9 +34,9 @@
                         <label>
                             Password: <input type="password" name="password">
                         </label>
-                        <button type="submit">Зарегистрироваться</button>
+                        <button type="submit">Register</button>
                         <p style="color: red">{{ error }}</p>
-                        <a href="{% url 'login' %}">Войти</a>
+                        <a href="{% url 'login' %}">Login</a>
                     </form>
                 </div>
             </div>
