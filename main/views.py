@@ -190,6 +190,13 @@ def send_review(request):
 
 
 def adm(request):
+	if 'id_user' not in request.session:
+		return redirect('/login')
+	with connection.cursor() as cursor:
+		cursor.execute('SELECT admin_access FROM stuff WHERE people_id = %s', [request.session['id_user']])
+		result = cursor.fetchone()
+		if result is None:
+			return redirect('/')
 	if request.method == 'POST':
 		if request.POST.get('edit_doctor') is not None:
 			with connection.cursor() as cursor:
