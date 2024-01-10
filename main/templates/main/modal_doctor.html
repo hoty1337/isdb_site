@@ -9,7 +9,7 @@
         <div id="main"></div>
         <hr>
         <div id="send_review">
-          <form action="{% url 'send_review' %}" method="post">
+          <form action="{% url 'send_review' %}" method="post" {% if 'id_user' not in session %}hidden{% endif %}>
             <input id="doc_id" class="doc_id" name="doc_id" hidden value="0">
             <label>
               Оценка:
