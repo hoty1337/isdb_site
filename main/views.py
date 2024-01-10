@@ -110,6 +110,7 @@ def get_free_time(request):
 		return render(request, 'main/time_range.html', {'all_time': all_time})
 	return redirect('/')
 
+
 def appointments(request):
 	if 'id_user' not in request.session:
 		return redirect('/')
@@ -125,9 +126,10 @@ def appointments(request):
 			chosen_datetime = chosen_date + ' ' + chosen_time
 			tel = request.POST.get('tel')
 			cursor.execute('SELECT id FROM patients WHERE people_id = %s', [request.session['id_user']])
-			if cursor.fetchone():
-				patient_id = cursor.fetchone()[0]
-			if cursor.fetchone() is None:
+			patients_id = cursor.fetchone()
+			if patients_id is not None:
+				patient_id = patients_id[0]
+			if patients_id is None:
 				cursor.execute('INSERT INTO contact_details (phone_number, email) VALUES (%s, %s) RETURNING id',
 											 [tel, email])
 				contact_details_id = cursor.fetchone()[0]
@@ -173,10 +175,13 @@ def get_reviews(request):
 def send_review(request):
 	if request.method == 'POST':
 		with connection.cursor() as cursor:
-			cursor.execute('INSERT INTO reviews (review, mark, date, doctor_id, patient_id) VALUES (%s, %s, %s, %s, %s)',
-										 [request.POST.get('review_text'), request.POST.get('mark'), date.today().strftime('%Y-%m-%d'), request.POST.get('doc_id'),
-										 request.session['id_user']])
-			cursor.callproc('get_reviews', [request.POST.get('doc_id')])
-			reviews = namedTupleFetchAll(cursor)
+			cursor.execute('SELECT id FROM patients WHERE patients.people_id = %s', [request.session['id_user']])
+			patient_id = cursor.fetchone()
+			if patient_id is not None:
+				cursor.execute('INSERT INTO reviews (review, mark, date, doctor_id, patient_id) VALUES (%s, %s, %s, %s, %s)',
+											 [request.POST.get('review_text'), request.POST.get('mark'), date.today().strftime('%Y-%m-%d'), request.POST.get('doc_id'),
+											 patient_id[0]])
+				cursor.callproc('get_reviews', [request.POST.get('doc_id')])
+				reviews = namedTupleFetchAll(cursor)
 			return render(request, 'main/reviews.html', {'session': request.session, 'reviews': reviews})
 	return redirect('/')
