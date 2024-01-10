@@ -8,25 +8,54 @@
         </div>
         <div class="container2">
             <div class="map-container2">
-                <form>
+                <form id="appointment" action="{% url 'appointments' %}" method="post">
+                    {% csrf_token %}
+                    <label>
+                        Номер телефона:
+                        <input type="tel" name="tel">
+                    </label>
                     <label>
                         Доктор:
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg">
+                        <select id="doc_id" name="doc_id" class="form-select form-select-lg mb-3" aria-label=".form-select-lg">
                             {% for doctor in doctors %}
                                 <option value="{{doctor.id}}">{{doctor.surname}} {{doctor.name}} {{doctor.patronymic}}</option>
                             {% endfor %}
                         </select>
                     </label>
                     <label>
-                        <input type="date" name="calendar" min="{{curdate}}" max="{{lastdate}}">
+                        <input id="calendar" type="date" name="calendar" min="{{min_date}}" max="{{lastdate}}" value="{{min_date}}">
                     </label>
+                    <label>
+                        <select id="time" name="time">
+                            {% for time in all_time %}
+                            <option value="{{time}}">{{time}}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                    <input type="submit" value="Записаться">
                 </form>
             </div>
         </div>
     </div>
 
     <script>
-
+        $(function() {
+             $('#calendar').on('change', function (e) {
+                 let date = $('#calendar').val();
+                 let doc_id = $('#doc_id').val();
+                 $.ajax({
+                   url: "{% url 'get_free_time' %}",
+                   method: 'get',
+                     data: {
+                        doc_id: doc_id,
+                        date: date
+                     },
+                   success: function (data) {
+                       $('#time').html(data)
+                   }
+                 });
+             });
+          });
     </script>
 
 {% endblock %}

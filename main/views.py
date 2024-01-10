@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from django.shortcuts import render, redirect
 from django.db import connection
 import hashlib
@@ -94,13 +94,71 @@ def logout(request):
 	return redirect('/')
 
 
+def get_free_time(request):
+	if request.method == 'GET':
+		date = request.GET.get('date')
+		doc_id = request.GET.get('doc_id')
+		all_time = ['08:00', '09:00', '10:00', '11:00',
+								'12:00', '13:00', '14:00', '15:00',
+								'16:00', '17:00', '18:00', '19:00']
+		with connection.cursor() as cursor:
+			cursor.execute('SELECT date FROM appointments WHERE doctor_id = %s', [doc_id])
+			result = cursor.fetchall()
+			for row in result:
+				if str(row[0].date()) == str(date):
+					all_time.remove(row[0].time().strftime('%H:%M'))
+		return render(request, 'main/time_range.html', {'all_time': all_time})
+	return redirect('/')
+
 def appointments(request):
 	if 'id_user' not in request.session:
 		return redirect('/')
+
+	if request.method == 'POST':
+		with connection.cursor() as cursor:
+			cursor.execute('SELECT * FROM people WHERE id = %s', [request.session['id_user']])
+			person = namedTupleFetchAll(cursor)
+			email = person[0].email
+			doc_id = request.POST.get('doc_id')
+			chosen_date = request.POST.get('calendar')
+			chosen_time = request.POST.get('time')
+			chosen_datetime = chosen_date + ' ' + chosen_time
+			tel = request.POST.get('tel')
+			cursor.execute('SELECT id FROM patients WHERE people_id = %s', [request.session['id_user']])
+			if cursor.fetchone():
+				patient_id = cursor.fetchone()[0]
+			if cursor.fetchone() is None:
+				cursor.execute('INSERT INTO contact_details (phone_number, email) VALUES (%s, %s) RETURNING id',
+											 [tel, email])
+				contact_details_id = cursor.fetchone()[0]
+				cursor.execute('INSERT INTO patients (people_id, contact_details_id) VALUES (%s, %s) RETURNING id',
+											 [request.session['id_user'], contact_details_id])
+				patient_id = cursor.fetchone()[0]
+			cursor.execute('INSERT INTO appointments (date, patient_id, doctor_id, status)' ' VALUES (%s, %s, %s, %s)',
+										 [chosen_datetime, patient_id, doc_id, 'active'])
+
+	with connection.cursor() as cursor:
+		cursor.execute('SELECT date FROM appointments ')
+		all_time = ['08:00', '09:00', '10:00', '11:00',
+								'12:00', '13:00', '14:00', '15:00',
+								'16:00', '17:00', '18:00', '19:00']
+
+	today = datetime.today()
+	min_date = today.strftime('%Y-%m-%d')
+
 	with connection.cursor() as cursor:
 		cursor.callproc('get_doctors_list')
 		doctors = namedTupleFetchAll(cursor)
-	return render(request, 'main/appointments.html', {'session': request.session, 'doctors': doctors, 'curdate': date.today().strftime('%Y-%m-%d'), 'lastdate': (date.today() + timedelta(days=30)).strftime('%Y-%m-%d')})
+
+	dict_obj = {
+		'session': request.session,
+		'doctors': doctors,
+		'min_date': min_date,
+		'lastdate': (today + timedelta(days=30)).strftime('%Y-%m-%d'),
+		'all_time': all_time
+	}
+
+	return render(request, 'main/appointments.html', dict_obj)
 
 
 def get_reviews(request):
