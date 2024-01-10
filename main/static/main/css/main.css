@@ -141,7 +141,7 @@ body {
     padding: 20px;
     text-align: center;
 }
-
+.block
 .block-auth h2 {
     color: #fff;
 }
@@ -152,7 +152,7 @@ body {
 
 .block-auth label {
     display: block;
-    margin: 10px 0;
+    margin: 0;
 }
 
 .block-auth input {
@@ -165,6 +165,7 @@ body {
 }
 
 .block-auth button {
+
     width: 100%;
     padding: 10px;
     background-color: #3498db; /* Цвет кнопки */
@@ -180,7 +181,7 @@ body {
 }
 
 .block-auth p {
-    margin-top: 10px;
+    margin-top: 0px;
 }
 
 .about-section {
@@ -369,6 +370,9 @@ p.author {
     align-items: center;
 }
 
+.map-container3 {
+
+}
 #appointment {
     text-align: center;
     background-color: rgba(255, 255, 255, 0.5);
