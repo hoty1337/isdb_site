@@ -1,0 +1,115 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+{% block title %}ADMIN{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-4">
+            {% for el in doctors %}
+            <div id="doctor_{{el.id}}" class="content">
+                <h3>Врач</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    <label>
+                        Фамилия:
+                        <input type="text" name="surname" id="surname" value="{{ el.surname }}">
+                    </label>
+                    <label>
+                        Имя:
+                        <input type="text" name="name" id="name" value="{{ el.name }}">
+                    </label>
+                    <label>
+                        Отчество:
+                        <input type="text" name="patronymic" id="patronymic" value="{{ el.patronymic }}">
+                    </label>
+                    <label>
+                        Специализация:
+                        <input type="text" name="specialization" id="specialization" value="{{ el.specialization }}">
+                    </label>
+                    <label>
+                        Квалификация:
+                        <input type="text" name="qualification" id="qualification" value="{{ el.qualification }}">
+                    </label>
+                    <label>
+                        Области практики:
+                        <input type="text" name="aop" id="aop" value="{{ el.aop }}">
+                    </label>
+                    <label>
+                        Фото:
+                        <input type="text" name="photo" id="photo" value="{{ el.photo }}">
+                    </label>
+                    <label>
+                        Биография:
+                        <input type="text" name="bio" id="bio" value="{{ el.bio }}">
+                    </label>
+                    <label>
+                        Номер телефона:
+                        <input type="text" name="phone_number" id="phone_number" value="{{ el.phone_number }}">
+                    </label>
+                    <input type="text" name="edit_doctor" hidden value="{{el.id}}">
+                    <input type="submit" id="{{el.id}}" class="btn btn-primary" value="Редактировать">
+                </form>
+            </div><br>
+            {% endfor %}
+        </div>
+        <div class="col-lg-4">
+            {% for appointment in appointments %}
+                <div id="appointment_{{appointment.id}}" class="content">
+                    <p>{{appointment.date}}</p>
+                    <p>Врач: <b>{{appointment.surename}} {{appointment.name}} {{appointment.patrynomic}}</b></p>
+                    <p>Номер пациента: <b>{{appointment.phone_number}}</b></p>
+                    <a id="{{appointment.id}}" href=""><b>{{appointment.status}}</b></a>
+                </div><br>
+            {% endfor %}
+        </div>
+        <div class="col-lg-4">
+            <div class="content">
+                <h3>Post news</h3>
+                <form id="news" method="post">
+                    <label>
+                        Title:
+                        <input name="title" id="title" type="text">
+                    </label>
+                    <label>
+                        Text:
+                        <textarea name="text" id="text" style="width: -webkit-fill-available"></textarea>
+                    </label>
+                    <input type="submit" value="Post">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('.content a').on('click', function (e) {
+            let status = $(this).text();
+            let id = $(this).attr('id');
+            if(status === 'active') {
+                $.ajax({
+                    url: "{% url 'adm' %}",
+                    method: 'post',
+                    data: {
+                        edit_appointment: id,
+                        csrfmiddlewaretoken: '{{csrf_token}}'
+                    }
+                });
+            }
+        });
+
+        $('form#news').on('submit', function (e) {
+            e.preventDefault();
+            let title = $('input#title').val();
+            let text = $('textarea#text').val();
+            $.ajax({
+                url: "{% url 'adm' %}",
+                method: 'post',
+                data: {
+                    post_news: 1,
+                    title: title,
+                    text: text,
+                    csrfmiddlewaretoken: '{{csrf_token}}'
+                }
+            });
+        });
+    </script>
+{% endblock %}

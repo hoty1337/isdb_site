@@ -104,7 +104,7 @@ def get_free_time(request):
 								'12:00', '13:00', '14:00', '15:00',
 								'16:00', '17:00', '18:00', '19:00']
 		with connection.cursor() as cursor:
-			cursor.execute('SELECT date FROM appointments WHERE doctor_id = %s', [doc_id])
+			cursor.execute("SELECT date FROM appointments WHERE doctor_id = %s AND status = 'active'", [doc_id])
 			result = cursor.fetchall()
 			for row in result:
 				if str(row[0].date()) == str(date):
@@ -187,3 +187,50 @@ def send_review(request):
 				reviews = namedTupleFetchAll(cursor)
 			return render(request, 'main/reviews.html', {'session': request.session, 'reviews': reviews})
 	return redirect('/')
+
+
+def adm(request):
+	if request.method == 'POST':
+		if request.POST.get('edit_doctor') is not None:
+			with connection.cursor() as cursor:
+				doc_id = request.POST.get('edit_doctor')
+				surname = request.POST.get('surname')
+				name = request.POST.get('name')
+				patronymic = request.POST.get('patronymic')
+				specialization = request.POST.get('specialization')
+				# dob = request.POST.get('dob')
+				qualification = request.POST.get('qualification')
+				aop = request.POST.get('aop')
+				photo = request.POST.get('photo')
+				bio = request.POST.get('bio')
+				phone_number = request.POST.get('phone_number')
+				cursor.execute('UPDATE doctors SET specialization = %s, qualification = %s, '
+											 'areas_of_practice = %s, photo = %s, short_bio = %s WHERE id = %s RETURNING people_id, contact_details_id',
+											 [specialization, qualification, aop, photo, bio, doc_id])
+				people_data = cursor.fetchone()
+				people_id = people_data[0]
+				contact_details_id = people_data[1]
+				cursor.execute('UPDATE people SET surename = %s, name = %s, patrynomic = %s WHERE id = %s',
+											 [surname, name, patronymic, people_id])
+				cursor.execute('UPDATE contact_details SET phone_number = %s WHERE id = %s', [phone_number, contact_details_id])
+		if request.POST.get('edit_appointment') is not None:
+			with connection.cursor() as cursor:
+				cursor.execute("UPDATE appointments SET status = 'inactive' WHERE id = %s", [request.POST.get('edit_appointment')])
+		if request.POST.get('post_news') is not None:
+			with connection.cursor() as cursor:
+				cursor.execute('INSERT INTO news(people_id, title, text, date) VALUES (%s, %s, %s, %s)',
+											 [request.session['id_user'], request.POST.get('title'),
+												request.POST.get('text'), date.today().strftime('%Y-%m-%d')])
+
+	with connection.cursor() as cursor:
+			cursor.callproc('get_doctors_list')
+			doctors = namedTupleFetchAll(cursor)
+			cursor.execute('SELECT appointments.id, appointments.date, appointments.status, '
+										 'contact_details.email, contact_details.phone_number, '
+										 'people.name, people.surename, people.patrynomic '
+										 'FROM appointments LEFT JOIN patients ON appointments.patient_id = patients.id '
+										 'LEFT JOIN doctors ON appointments.doctor_id = doctors.id '
+										 'LEFT JOIN people ON doctors.people_id = people.id '
+										 'LEFT JOIN contact_details ON patients.contact_details_id = contact_details.id ')
+			appointments = namedTupleFetchAll(cursor)
+	return render(request, 'main/adm.html', {'session': request.session, 'doctors': doctors, 'appointments': appointments})

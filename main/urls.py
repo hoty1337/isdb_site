@@ -11,5 +11,6 @@ urlpatterns = [
     path('appointments', views.appointments, name='appointments'),
     path('get_reviews', views.get_reviews, name='get_reviews'),
     path('send_review', views.send_review, name='send_review'),
-    path('get_free_time', views.get_free_time, name='get_free_time')
+    path('get_free_time', views.get_free_time, name='get_free_time'),
+    path('adm', views.adm, name='adm')
 ]
