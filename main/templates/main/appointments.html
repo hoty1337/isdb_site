@@ -10,52 +10,66 @@
             <div class="map-container2">
                 <form id="appointment" action="{% url 'appointments' %}" method="post">
                     {% csrf_token %}
-                    <label>
-                        Номер телефона:
+                    <div>
+                        <div>
+                            Номер телефона:
+                        </div>
+
                         <input type="tel" name="tel">
-                    </label>
-                    <label>
-                        Доктор:
-                        <select id="doc_id" name="doc_id" class="form-select form-select-lg mb-3" aria-label=".form-select-lg">
+                    </div>
+                    <div>
+                        <div>
+                            Доктор:
+                        </div>
+                        <select id="doc_id" name="doc_id" class="form-select form-select-lg mb-3"
+                                aria-label=".form-select-lg">
                             {% for doctor in doctors %}
-                                <option value="{{doctor.id}}">{{doctor.surname}} {{doctor.name}} {{doctor.patronymic}}</option>
+                                <option value="{{ doctor.id }}">{{ doctor.surname }} {{ doctor.name }} {{ doctor.patronymic }}</option>
                             {% endfor %}
                         </select>
-                    </label>
-                    <label>
-                        <input id="calendar" type="date" name="calendar" min="{{min_date}}" max="{{lastdate}}" value="{{min_date}}">
-                    </label>
-                    <label>
-                        <select id="time" name="time">
-                            {% for time in all_time %}
-                            <option value="{{time}}">{{time}}</option>
-                            {% endfor %}
-                        </select>
-                    </label>
-                    <input type="submit" value="Записаться">
+                    </div>
+                    <div>
+                        <label>
+                            <input id="calendar" type="date" name="calendar" min="{{ min_date }}" max="{{ lastdate }}"
+                                   value="{{ min_date }}">
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <select id="time" name="time">
+                                {% for time in all_time %}
+                                    <option value="{{ time }}">{{ time }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+                    <div>
+                        <input type="submit" value="Записаться">
+                    </div>
+
                 </form>
             </div>
         </div>
     </div>
 
     <script>
-        $(function() {
-             $('#calendar, #doc_id').on('change', function (e) {
-                 let date = $('#calendar').val();
-                 let doc_id = $('#doc_id').val();
-                 $.ajax({
-                   url: "{% url 'get_free_time' %}",
-                   method: 'get',
-                     data: {
+        $(function () {
+            $('#calendar, #doc_id').on('change', function (e) {
+                let date = $('#calendar').val();
+                let doc_id = $('#doc_id').val();
+                $.ajax({
+                    url: "{% url 'get_free_time' %}",
+                    method: 'get',
+                    data: {
                         doc_id: doc_id,
                         date: date
-                     },
-                   success: function (data) {
-                       $('#time').html(data)
-                   }
-                 });
-             });
-          });
+                    },
+                    success: function (data) {
+                        $('#time').html(data)
+                    }
+                });
+            });
+        });
     </script>
 
 {% endblock %}
