@@ -40,7 +40,7 @@
 
     <script>
         $(function() {
-             $('#calendar').on('change', function (e) {
+             $('#calendar, #doc_id').on('change', function (e) {
                  let date = $('#calendar').val();
                  let doc_id = $('#doc_id').val();
                  $.ajax({
