@@ -83,8 +83,10 @@ def register(request):
 					return render(request, 'main/register.html',
 												{'email': email, 'password': password, 'session': request.session,
 												 'error': 'Ваш возраст должен быть больше 18 лет!'})
-	return render(request, 'main/register.html',
+			return render(request, 'main/register.html',
 								{'email': email, 'password': password, 'session': request.session, 'error': 'Данная почта уже занята!'})
+	return render(request, 'main/register.html',
+								{'email': email, 'password': password, 'session': request.session})
 
 
 def logout(request):
