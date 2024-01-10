@@ -32,47 +32,47 @@
     </div>
 {% endblock %}
 
-{#{% block content %}#}
-{#    <div class="row">#}
-{#        <div class="block col-md-4">#}
-{#            <div class="title">#}
-{#                <h3>Наши врачи</h3>#}
-{#            </div>#}
-{#            <div class="body">#}
-{#                {% for el in doctors %}#}
-{#                    <div class="content">#}
-{#                        <p id="name{{el.id}}">{{el.surname}} {{el.name}} {{el.patronymic}}</p>#}
-{#                        <p id="specialization{{el.id}}">{{el.specialization}}</p>#}
-{#                        <p id="dob{{el.id}}">{{el.dob}}</p>#}
-{#                        <p id="qualification{{el.id}}" hidden>{{el.qualification}}</p>#}
-{#                        <p id="aop{{el.id}}" hidden>{{el.aop}}</p>#}
-{#                        <p id="photo{{el.id}}" hidden>{{el.photo}}</p>#}
-{#                        <p id="bio{{el.id}}" hidden>{{el.bio}}</p>#}
-{#                        <p id="phone_number{{el.id}}" hidden>{{el.phone_number}}</p>#}
-{#                        <button id="{{el.id}}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">#}
-{#                          Подробнее#}
-{#                        </button>#}
-{#                    </div><br>#}
-{#                {% endfor %}#}
-{#            </div>#}
-{#        </div>#}
-{#        <div class="block col-md-7">#}
-{#            <div class="title">#}
-{#                <h3>Новости</h3>#}
-{#            </div>#}
-{#            <div class="body">#}
-{#                {% for el in news %}#}
-{#                    <div class="content">#}
-{#                        <h4>{{el.title}}</h4>#}
-{#                        <p>{{el.text}}</p>#}
-{#                        <p class="date">{{el.date}}</p>#}
-{#                        <p class="author">Автор: {{el.patronymic}} {{el.name}}</p>#}
-{#                    </div>#}
-{#                {% endfor %}#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{##}
-{#    {% include 'main/modal_doctor.html' %}#}
-{##}
-{#{% endblock %}#}
+{% block content %}
+    <div class="row">
+        <div class="block col-md-4">
+            <div class="title">
+                <h3>Наши врачи</h3>
+            </div>
+            <div class="body">
+                {% for el in doctors %}
+                    <div class="content">
+                        <p id="name{{el.id}}">{{el.surname}} {{el.name}} {{el.patronymic}}</p>
+                        <p id="specialization{{el.id}}">{{el.specialization}}</p>
+                        <p id="dob{{el.id}}">{{el.dob}}</p>
+                        <p id="qualification{{el.id}}" hidden>{{el.qualification}}</p>
+                        <p id="aop{{el.id}}" hidden>{{el.aop}}</p>
+                        <p id="photo{{el.id}}" hidden>{{el.photo}}</p>
+                        <p id="bio{{el.id}}" hidden>{{el.bio}}</p>
+                        <p id="phone_number{{el.id}}" hidden>{{el.phone_number}}</p>
+                        <button id="{{el.id}}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                          Подробнее
+                        </button>
+                    </div><br>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="block col-md-7">
+            <div class="title">
+                <h3>Новости</h3>
+            </div>
+            <div class="body">
+                {% for el in news %}
+                    <div class="content">
+                        <h4>{{el.title}}</h4>
+                        <p>{{el.text}}</p>
+                        <p class="date">{{el.date}}</p>
+                        <p class="author">Автор: {{el.patronymic}} {{el.name}}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% include 'main/modal_doctor.html' %}
+
+{% endblock %}
